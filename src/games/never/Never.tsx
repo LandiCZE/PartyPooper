@@ -20,6 +20,8 @@ const categoryTint: Record<string, string> = {
   Online: 'rgba(20, 184, 166, 0.18)',
   Zpověď: 'rgba(244, 114, 182, 0.18)',
   Pikantní: 'rgba(239, 68, 68, 0.22)',
+  Chata: 'rgba(132, 204, 22, 0.20)',
+  Dospělost: 'rgba(168, 162, 158, 0.20)',
 }
 
 export default function Never() {
