@@ -5,7 +5,7 @@ import PrimaryButton from '../../components/PrimaryButton'
 import { createDeck } from '../../utils/deck'
 import neverData from '../../data/never.json'
 
-type Prompt = { category: string; text: string }
+type Prompt = { categories: string[]; text: string }
 
 const categoryTint: Record<string, string> = {
   Párty: 'rgba(255, 92, 138, 0.20)',
@@ -27,13 +27,13 @@ const categoryTint: Record<string, string> = {
 export default function Never() {
   const prompts = neverData as Prompt[]
   const allCategories = useMemo(
-    () => Array.from(new Set(prompts.map((p) => p.category))),
+    () => Array.from(new Set(prompts.flatMap((p) => p.categories))),
     [prompts],
   )
   const [active, setActive] = useState<Set<string>>(new Set(allCategories))
 
   const filtered = useMemo(
-    () => prompts.filter((p) => active.has(p.category)),
+    () => prompts.filter((p) => p.categories.some((c) => active.has(c))),
     [prompts, active],
   )
   const initial = useMemo(() => createDeck<Prompt>(filtered), [filtered])
@@ -46,7 +46,7 @@ export default function Never() {
     else next.add(cat)
     if (next.size === 0) return
     setActive(next)
-    const rebuilt = createDeck<Prompt>(prompts.filter((p) => next.has(p.category)))
+    const rebuilt = createDeck<Prompt>(prompts.filter((p) => p.categories.some((c) => next.has(c))))
     setDeck(rebuilt)
     setDeckKey((k) => k + 1)
   }
@@ -93,8 +93,8 @@ export default function Never() {
       ) : (
         <Card
           keyId={`${deckKey}-${deck.total - deck.remaining}`}
-          tint={categoryTint[deck.current!.category] ?? 'rgba(255, 92, 138, 0.18)'}
-          eyebrow={deck.current!.category}
+          tint={categoryTint[deck.current!.categories[0]] ?? 'rgba(255, 92, 138, 0.18)'}
+          eyebrow={deck.current!.categories.join(' · ')}
         >
           <p>{deck.current!.text}</p>
         </Card>
