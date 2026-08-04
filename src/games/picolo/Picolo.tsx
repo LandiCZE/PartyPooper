@@ -43,7 +43,7 @@ export default function Picolo() {
     <GameLayout
       title="Picolo"
       icon="🎯"
-      subtitle={`Karta ${deck.total - deck.remaining} z ${deck.total}`}
+      subtitle={`${String(deck.total - deck.remaining).padStart(2, '0')}/${deck.total}`}
       footer={
         deck.exhausted ? (
           <PrimaryButton onClick={() => setDeck(deck.reset())}>Zamíchat balíček</PrimaryButton>
@@ -52,7 +52,7 @@ export default function Picolo() {
         )
       }
     >
-      <div className="mb-4 flex flex-wrap gap-2">
+      <div className="mb-5 flex flex-wrap gap-2">
         {allCategories.map((c) => {
           const on = active.has(c)
           return (
@@ -60,10 +60,10 @@ export default function Picolo() {
               key={c}
               type="button"
               onClick={() => toggle(c)}
-              className={`rounded-full border px-3 py-1.5 text-sm transition active:scale-95 ${
+              className={`font-display border-2 px-3 py-1 text-[10px] uppercase tracking-wider transition-transform duration-75 active:translate-x-[2px] active:translate-y-[2px] ${
                 on
-                  ? 'border-accent/60 bg-accent/20 text-white'
-                  : 'border-white/10 bg-white/5 text-white/60'
+                  ? 'border-white bg-neon-magenta/30 text-white shadow-[3px_3px_0_0_#00e5ff] active:!shadow-none'
+                  : 'border-white/25 bg-transparent text-white/45'
               }`}
             >
               {c}

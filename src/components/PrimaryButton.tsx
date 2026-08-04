@@ -1,23 +1,31 @@
 import { ButtonHTMLAttributes } from 'react'
 
+type Variant = 'magenta' | 'cyan' | 'lime' | 'ghost'
+
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: 'primary' | 'ghost'
+  variant?: Variant
+}
+
+const styles: Record<Variant, string> = {
+  magenta:
+    'bg-neon-magenta text-white border-white shadow-[5px_5px_0_0_#00e5ff] hover:shadow-[5px_5px_0_0_#00e5ff]',
+  cyan: 'bg-neon-cyan text-ink border-white shadow-[5px_5px_0_0_#ff2d95]',
+  lime: 'bg-neon-lime text-ink border-white shadow-[5px_5px_0_0_#ff2d95]',
+  ghost:
+    'bg-ink/40 text-white border-white/70 shadow-[5px_5px_0_0_rgba(255,255,255,0.25)]',
 }
 
 export default function PrimaryButton({
-  variant = 'primary',
+  variant = 'magenta',
   className = '',
   children,
   ...rest
 }: Props) {
-  const base =
-    'w-full rounded-2xl px-6 py-4 text-lg font-semibold transition active:scale-[0.98] disabled:opacity-50'
-  const styles =
-    variant === 'primary'
-      ? 'bg-accent text-white shadow-[0_10px_30px_-10px_rgba(255,92,138,0.7)] hover:brightness-110'
-      : 'bg-white/5 text-white/90 hover:bg-white/10 border border-white/10'
   return (
-    <button {...rest} className={`${base} ${styles} ${className}`}>
+    <button
+      {...rest}
+      className={`font-display w-full uppercase tracking-wider border-2 px-6 py-4 text-base sm:text-lg transition-transform duration-100 active:translate-x-[3px] active:translate-y-[3px] active:!shadow-none disabled:opacity-50 disabled:cursor-not-allowed ${styles[variant]} ${className}`}
+    >
       {children}
     </button>
   )

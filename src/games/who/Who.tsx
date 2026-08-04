@@ -13,7 +13,7 @@ export default function Who() {
     <GameLayout
       title="Kdo z vás…"
       icon="🙋"
-      subtitle={`Karta ${deck.total - deck.remaining} z ${deck.total}`}
+      subtitle={`${String(deck.total - deck.remaining).padStart(2, '0')}/${deck.total}`}
       footer={
         deck.exhausted ? (
           <PrimaryButton onClick={() => setDeck(deck.reset())}>Zamíchat balíček</PrimaryButton>

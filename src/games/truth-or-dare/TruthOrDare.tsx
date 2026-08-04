@@ -39,29 +39,31 @@ export default function TruthOrDare() {
   return (
     <GameLayout title="Pravda nebo úkol" icon="🤔">
       {mode === 'idle' && (
-        <div className="grid grid-cols-1 gap-4">
+        <div className="grid grid-cols-1 gap-5">
           <button
             type="button"
             onClick={() => pick('truth')}
-            className="rounded-3xl border border-white/5 bg-gradient-to-br from-fuchsia-500/25 to-fuchsia-500/5 p-8 text-left shadow-card transition active:scale-[0.98]"
+            className="group relative border-2 border-white/90 bg-neon-purple/25 shadow-[6px_6px_0_0_#00e5ff] p-6 text-left transition-transform duration-100 active:translate-x-[3px] active:translate-y-[3px] active:!shadow-none"
           >
-            <p className="text-xs uppercase tracking-[0.2em] text-muted">Volba 1</p>
-            <p className="mt-2 text-3xl font-bold">Pravda</p>
-            <p className="mt-2 text-sm text-muted">Odpověz upřímně na otázku.</p>
+            <div className="absolute inset-x-0 top-0 h-1.5 bg-neon-purple" />
+            <p className="font-display text-[10px] uppercase tracking-[0.3em] text-neon-cyan">Volba 01</p>
+            <p className="mt-3 font-display text-4xl uppercase text-white">Pravda</p>
+            <p className="mt-3 text-sm text-white/70">Odpověz upřímně. Bez triků, bez výmluv.</p>
           </button>
           <button
             type="button"
             onClick={() => pick('dare')}
-            className="rounded-3xl border border-white/5 bg-gradient-to-br from-accent/25 to-accent/5 p-8 text-left shadow-card transition active:scale-[0.98]"
+            className="group relative border-2 border-white/90 bg-neon-magenta/25 shadow-[6px_6px_0_0_#d0ff00] p-6 text-left transition-transform duration-100 active:translate-x-[3px] active:translate-y-[3px] active:!shadow-none"
           >
-            <p className="text-xs uppercase tracking-[0.2em] text-muted">Volba 2</p>
-            <p className="mt-2 text-3xl font-bold">Úkol</p>
-            <p className="mt-2 text-sm text-muted">Splň, co ti karta naordinuje.</p>
+            <div className="absolute inset-x-0 top-0 h-1.5 bg-neon-magenta" />
+            <p className="font-display text-[10px] uppercase tracking-[0.3em] text-neon-lime">Volba 02</p>
+            <p className="mt-3 font-display text-4xl uppercase text-white">Úkol</p>
+            <p className="mt-3 text-sm text-white/70">Splň, co karta naordinuje. Bez slitování.</p>
           </button>
           <button
             type="button"
             onClick={() => pick(Math.random() < 0.5 ? 'truth' : 'dare')}
-            className="mt-2 rounded-2xl border border-white/10 bg-white/5 py-3 text-sm text-white/70 active:scale-[0.98]"
+            className="mt-1 font-display border-2 border-white/40 bg-transparent py-3 text-xs uppercase tracking-widest text-white/60 transition-transform active:translate-x-[2px] active:translate-y-[2px]"
           >
             🎲 Vyber za mě náhodně
           </button>
@@ -71,23 +73,24 @@ export default function TruthOrDare() {
       {mode !== 'idle' && (
         <Card
           keyId={active?.current ?? `${mode}-end`}
-          tint={mode === 'truth' ? 'rgba(217, 70, 239, 0.18)' : 'rgba(255, 92, 138, 0.18)'}
+          tint={mode === 'truth' ? 'rgba(139, 92, 255, 0.22)' : 'rgba(255, 45, 149, 0.22)'}
           eyebrow={mode === 'truth' ? 'Pravda' : 'Úkol'}
         >
           {exhausted ? (
-            <p className="text-xl text-muted">
+            <p className="text-lg text-white/70 normal-case">
               Došly {mode === 'truth' ? 'otázky' : 'úkoly'}. Zamíchej balíček, nebo přepni.
             </p>
           ) : (
-            <p>{active?.current}</p>
+            <p className="normal-case">{active?.current}</p>
           )}
         </Card>
       )}
 
       {mode !== 'idle' && (
-        <div className="mt-4 flex flex-col gap-2">
+        <div className="mt-5 flex flex-col gap-3">
           {exhausted ? (
             <PrimaryButton
+              variant={mode === 'truth' ? 'cyan' : 'magenta'}
               onClick={() =>
                 mode === 'truth' ? setTruth(truth.reset()) : setDare(dare.reset())
               }
@@ -95,10 +98,15 @@ export default function TruthOrDare() {
               Zamíchat balíček
             </PrimaryButton>
           ) : (
-            <PrimaryButton onClick={drawNext}>Další {mode === 'truth' ? 'pravda' : 'úkol'}</PrimaryButton>
+            <PrimaryButton
+              variant={mode === 'truth' ? 'cyan' : 'magenta'}
+              onClick={drawNext}
+            >
+              Další {mode === 'truth' ? 'pravda' : 'úkol'}
+            </PrimaryButton>
           )}
           <PrimaryButton variant="ghost" onClick={backToChoice}>
-            ← Vybrat znovu
+            ◄ Vybrat znovu
           </PrimaryButton>
         </div>
       )}

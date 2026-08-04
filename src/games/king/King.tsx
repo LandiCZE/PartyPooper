@@ -36,42 +36,48 @@ export default function King() {
     <GameLayout
       title="King's Cup"
       icon="👑"
-      subtitle={`Zbývá ${deck.remaining} karet z ${deck.total}`}
+      subtitle={`${deck.total - deck.remaining}/${deck.total}`}
       footer={
         deck.exhausted ? (
-          <PrimaryButton onClick={() => setDeck(deck.reset())}>Nový balíček</PrimaryButton>
+          <PrimaryButton variant="lime" onClick={() => setDeck(deck.reset())}>Nový balíček</PrimaryButton>
         ) : (
-          <PrimaryButton onClick={() => setDeck(deck.next())}>Táhnout kartu</PrimaryButton>
+          <PrimaryButton variant="lime" onClick={() => setDeck(deck.next())}>Táhnout kartu</PrimaryButton>
         )
       }
     >
       {deck.exhausted ? (
-        <Card tint="rgba(255, 191, 71, 0.15)" eyebrow="Konec">
-          <p className="text-xl text-muted">
+        <Card tint="rgba(208, 255, 0, 0.18)" eyebrow="Konec">
+          <p className="text-lg text-white/80 normal-case">
             Vytáhli jste všech 52 karet. Kdo neuspěl u posledního krále, ať se rozžehná s pohárem.
           </p>
         </Card>
       ) : (
         <Card
           keyId={deck.current!.id}
-          tint="rgba(255, 191, 71, 0.15)"
+          tint="rgba(208, 255, 0, 0.15)"
           eyebrow={<span>Karta {deck.total - deck.remaining} / {deck.total}</span>}
         >
-          <div className="flex items-center gap-4">
-            <div className="grid h-20 w-16 place-items-center rounded-xl bg-white text-black shadow-inner">
+          <div className="flex items-center gap-4 normal-case">
+            <div className="grid h-24 w-16 place-items-center border-2 border-black bg-white shadow-[3px_3px_0_0_#ff2d95] shrink-0">
               <div className="flex flex-col items-center leading-none">
-                <span className="text-2xl font-bold">{deck.current!.value}</span>
-                <span className={`text-2xl ${isRed ? 'text-red-500' : 'text-black'}`}>
+                <span className="font-display text-xl text-black">{deck.current!.value}</span>
+                <span className={`text-3xl leading-none ${isRed ? 'text-red-500' : 'text-black'}`}>
                   {deck.current!.suit}
                 </span>
               </div>
             </div>
             <div>
-              <p className="text-xs uppercase tracking-widest text-muted">{deck.current!.name}</p>
-              <p className="mt-1 text-2xl font-semibold">{deck.current!.rule}</p>
+              <p className="font-display text-[10px] uppercase tracking-[0.25em] text-neon-cyan">
+                {deck.current!.name}
+              </p>
+              <p className="mt-1 font-display text-2xl uppercase text-white">
+                {deck.current!.rule}
+              </p>
             </div>
           </div>
-          <p className="mt-5 text-base font-normal text-white/80">{deck.current!.description}</p>
+          <p className="mt-5 text-base font-normal text-white/85 normal-case leading-relaxed">
+            {deck.current!.description}
+          </p>
         </Card>
       )}
     </GameLayout>
