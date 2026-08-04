@@ -1,0 +1,15 @@
+[
+  { "value": "A", "name": "Eso", "rule": "Vodopád", "description": "Všichni začnou pít současně. Přestat může každý, až přestane pít člověk vlevo od něj. Ten, kdo vytáhl kartu, pije jako první a přestává, kdy chce." },
+  { "value": "2", "name": "Dvojka", "rule": "Ty", "description": "Vyber jednoho hráče, který si dá lok." },
+  { "value": "3", "name": "Trojka", "rule": "Já", "description": "Piješ ty, kdo vytáhl kartu." },
+  { "value": "4", "name": "Čtyřka", "rule": "Podlaha", "description": "Všichni se okamžitě dotknou podlahy. Poslední pije." },
+  { "value": "5", "name": "Pětka", "rule": "Kluci", "description": "Všichni kluci pijí." },
+  { "value": "6", "name": "Šestka", "rule": "Holky", "description": "Všechny holky pijí." },
+  { "value": "7", "name": "Sedmička", "rule": "Nebe", "description": "Všichni zvednou ruku k nebi. Poslední pije." },
+  { "value": "8", "name": "Osmička", "rule": "Kámoš", "description": "Vyber si parťáka do pití. Odteď pijete oba, kdykoli pije jeden z vás." },
+  { "value": "9", "name": "Devítka", "rule": "Rým", "description": "Řekni slovo. Ostatní postupně přidávají slova, která se s ním rýmují. Kdo nezvládne, pije." },
+  { "value": "10", "name": "Desítka", "rule": "Kategorie", "description": "Zvol kategorii (např. značky aut). Postupně vyjmenovávejte. Kdo nezvládne, pije." },
+  { "value": "J", "name": "Kluk", "rule": "Nikdy jsem", "description": "Zahrajte kolečko 'Nikdy jsem...'. Kdo to udělal, pije." },
+  { "value": "Q", "name": "Dáma", "rule": "Otázková královna", "description": "Až do další dámy jsi Otázková královna: pokládej otázky komukoliv. Kdo odpoví jinak než otázkou, pije." },
+  { "value": "K", "name": "Král", "rule": "Král", "description": "Nalij trochu ze svého pití do velkého kalicha uprostřed. Kdo vytáhne čtvrtého krále, musí kalich vypít." }
+]
