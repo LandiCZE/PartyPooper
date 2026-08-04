@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 html,
@@ -14,44 +14,27 @@ body,
 
 body {
   margin: 0;
-  font-family: 'Space Grotesk', system-ui, sans-serif;
-  color: #f5f2ff;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #1c1613;
+  background-color: #ece2cb;
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior-y: contain;
-  background:
-    radial-gradient(1100px 700px at 15% -5%, rgba(255, 45, 149, 0.28), transparent 60%),
-    radial-gradient(900px 700px at 105% 105%, rgba(0, 229, 255, 0.22), transparent 55%),
-    radial-gradient(500px 400px at 50% 45%, rgba(139, 92, 255, 0.14), transparent 60%),
-    #0a0028;
+  background-image:
+    radial-gradient(1200px 800px at 15% -10%, rgba(122, 42, 42, 0.06), transparent 60%),
+    radial-gradient(900px 700px at 105% 105%, rgba(38, 68, 92, 0.05), transparent 55%);
 }
 
-/* CRT scanlines */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 100;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.18) 0px,
-    rgba(0, 0, 0, 0.18) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-  mix-blend-mode: multiply;
-}
-
-/* Grain overlay */
+/* Subtle paper grain */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 101;
-  opacity: 0.06;
-  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  z-index: 50;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11 0 0 0 0 0.09 0 0 0 0 0.08 0 0 0 0.08 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
 }
 
 button,
@@ -61,8 +44,8 @@ textarea {
 }
 
 ::selection {
-  background: #ff2d95;
-  color: #0a0028;
+  background: #a83223;
+  color: #f6ecd6;
 }
 
 @layer utilities {
@@ -72,7 +55,22 @@ textarea {
   .safe-bottom {
     padding-bottom: max(env(safe-area-inset-bottom), 1rem);
   }
-  .text-shadow-neon {
-    text-shadow: 0 0 12px rgba(255, 45, 149, 0.6);
+  /* Wavy hand-drawn divider */
+  .divider-wave {
+    display: block;
+    height: 8px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 8' preserveAspectRatio='none'><path d='M0 4 Q 5 0 10 4 T 20 4 T 30 4 T 40 4 T 50 4 T 60 4 T 70 4 T 80 4 T 90 4 T 100 4' fill='none' stroke='%236b5c4b' stroke-width='1.2' opacity='0.55'/></svg>");
+    background-repeat: repeat-x;
+  }
+  /* Rubber-stamp look — angled, slightly distressed */
+  .stamp {
+    font-family: 'Special Elite', ui-monospace, monospace;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 2px 10px 3px;
+    border: 1.5px solid currentColor;
+    display: inline-block;
+    transform: rotate(-2deg);
+    opacity: 0.85;
   }
 }

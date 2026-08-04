@@ -7,21 +7,21 @@ import neverData from '../../data/never.json'
 
 type Prompt = { categories: string[]; text: string }
 
-const categoryTint: Record<string, string> = {
-  Párty: 'rgba(255, 92, 138, 0.20)',
-  Rande: 'rgba(217, 70, 239, 0.18)',
-  Trapasy: 'rgba(249, 115, 22, 0.18)',
-  Práce: 'rgba(148, 163, 184, 0.18)',
-  Přátelé: 'rgba(34, 197, 94, 0.18)',
-  Kvíz: 'rgba(59, 130, 246, 0.18)',
-  Chaos: 'rgba(234, 179, 8, 0.18)',
-  Škola: 'rgba(139, 92, 255, 0.18)',
-  Cesty: 'rgba(56, 189, 248, 0.18)',
-  Online: 'rgba(20, 184, 166, 0.18)',
-  Zpověď: 'rgba(244, 114, 182, 0.18)',
-  Pikantní: 'rgba(239, 68, 68, 0.22)',
-  Chata: 'rgba(132, 204, 22, 0.20)',
-  Dospělost: 'rgba(168, 162, 158, 0.20)',
+const categoryStamp: Record<string, string> = {
+  Párty: '#a83223',
+  Rande: '#7a2a2a',
+  Trapasy: '#a05a2a',
+  Práce: '#26445c',
+  Přátelé: '#3a5a3a',
+  Kvíz: '#26445c',
+  Chaos: '#5a2a52',
+  Škola: '#6a6a2a',
+  Cesty: '#26445c',
+  Online: '#5a2a52',
+  Zpověď: '#7a2a2a',
+  Pikantní: '#a83223',
+  Chata: '#3a5a3a',
+  Dospělost: '#6a6a2a',
 }
 
 export default function Never() {
@@ -51,11 +51,13 @@ export default function Never() {
     setDeckKey((k) => k + 1)
   }
 
+  const currentPrimary = deck.current?.categories[0] ?? 'Párty'
+  const stamp = categoryStamp[currentPrimary] ?? '#a83223'
+
   return (
     <GameLayout
       title="Nikdy jsem"
       icon="🍺"
-      subtitle={`${String(deck.total - deck.remaining).padStart(2, '0')}/${deck.total}`}
       footer={
         deck.exhausted ? (
           <PrimaryButton onClick={() => setDeck(deck.reset())}>Zamíchat balíček</PrimaryButton>
@@ -64,7 +66,7 @@ export default function Never() {
         )
       }
     >
-      <div className="mb-5 flex flex-wrap gap-2">
+      <div className="mb-5 flex flex-wrap gap-1.5">
         {allCategories.map((c) => {
           const on = active.has(c)
           return (
@@ -72,10 +74,10 @@ export default function Never() {
               key={c}
               type="button"
               onClick={() => toggle(c)}
-              className={`font-display border-2 px-3 py-1 text-[10px] uppercase tracking-wider transition-transform duration-75 active:translate-x-[2px] active:translate-y-[2px] ${
+              className={`font-stamp text-[11px] uppercase tracking-widest px-2.5 py-1 border transition-all active:translate-y-[1px] ${
                 on
-                  ? 'border-white bg-neon-magenta/30 text-white shadow-[3px_3px_0_0_#00e5ff] active:!shadow-none'
-                  : 'border-white/25 bg-transparent text-white/45'
+                  ? 'border-ink text-ink bg-card/60'
+                  : 'border-inkSoft/40 text-inkSoft'
               }`}
             >
               {c}
@@ -85,16 +87,17 @@ export default function Never() {
       </div>
 
       {deck.exhausted ? (
-        <Card tint="rgba(255, 92, 138, 0.18)" eyebrow="Konec balíčku" keyId={`end-${deckKey}`}>
-          <p className="text-xl text-muted">
+        <Card keyId={`end-${deckKey}`} eyebrow="Konec balíčku" stampColor={stamp}>
+          <p className="text-lg text-inkMuted">
             Došly karty z vybraných kategorií. Zamíchej balíček, nebo přidej další kategorii.
           </p>
         </Card>
       ) : (
         <Card
           keyId={`${deckKey}-${deck.total - deck.remaining}`}
-          tint={categoryTint[deck.current!.categories[0]] ?? 'rgba(255, 92, 138, 0.18)'}
           eyebrow={deck.current!.categories.join(' · ')}
+          stampColor={stamp}
+          footer={`Karta ${deck.total - deck.remaining} z ${deck.total}`}
         >
           <p>{deck.current!.text}</p>
         </Card>

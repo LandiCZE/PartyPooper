@@ -3,33 +3,49 @@ import { ReactNode } from 'react'
 type Props = {
   children: ReactNode
   keyId?: string | number
-  tint?: string
   eyebrow?: ReactNode
+  footer?: ReactNode
+  stampColor?: string
   className?: string
 }
 
-export default function Card({ children, keyId, tint, eyebrow, className }: Props) {
+export default function Card({
+  children,
+  keyId,
+  eyebrow,
+  footer,
+  stampColor = '#a83223',
+  className,
+}: Props) {
   return (
     <div
       key={keyId}
-      className={`animate-cardIn relative border-2 border-white/90 bg-panel shadow-[5px_5px_0_0_#ff2d95,10px_10px_0_0_#00e5ff] ${className ?? ''}`}
-      style={
-        tint
-          ? { backgroundImage: `linear-gradient(160deg, ${tint} 0%, transparent 70%)` }
-          : undefined
-      }
+      className={`animate-cardIn relative bg-card shadow-card border border-ink/10 ${className ?? ''}`}
     >
-      <div className="absolute inset-x-0 top-0 h-2 bg-gradient-to-r from-neon-magenta via-neon-cyan to-neon-lime" />
+      {/* thin ink rule inset around the card */}
+      <div className="absolute inset-2 border border-ink/15 pointer-events-none" />
 
-      <div className="px-5 pt-6 pb-6 sm:px-6 sm:pt-7 sm:pb-7">
+      <div className="relative px-6 pt-8 pb-6 sm:px-8 sm:pt-10 sm:pb-8">
         {eyebrow && (
-          <div className="mb-3 font-display text-[10px] uppercase tracking-[0.3em] text-neon-cyan">
-            {eyebrow}
+          <div className="mb-3 flex justify-center">
+            <span className="stamp" style={{ color: stampColor }}>
+              {eyebrow}
+            </span>
           </div>
         )}
-        <div className="min-h-[220px] flex flex-col justify-center text-xl sm:text-2xl leading-snug font-semibold uppercase">
+
+        <div className="min-h-[220px] flex flex-col justify-center font-display text-2xl sm:text-3xl leading-[1.25] text-ink text-balance text-center">
           {children}
         </div>
+
+        {footer && (
+          <>
+            <div className="divider-wave mt-6" />
+            <div className="mt-3 text-center font-body text-xs uppercase tracking-widest text-inkMuted">
+              {footer}
+            </div>
+          </>
+        )}
       </div>
     </div>
   )

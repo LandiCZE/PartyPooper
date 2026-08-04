@@ -4,51 +4,43 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ['"Rubik Mono One"', 'system-ui', 'sans-serif'],
-        body: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
-        mono: ['"VT323"', 'ui-monospace', 'monospace'],
+        display: ['"Fraunces"', 'Georgia', 'serif'],
+        body: ['"Inter"', 'system-ui', 'sans-serif'],
+        stamp: ['"Special Elite"', 'ui-monospace', 'monospace'],
       },
       colors: {
-        ink: '#0a0028',
-        panel: '#180040',
-        panel2: '#22005c',
-        muted: '#a196c9',
-        neon: {
-          magenta: '#ff2d95',
-          cyan: '#00e5ff',
-          lime: '#d0ff00',
-          purple: '#8b5cff',
-          orange: '#ff8a00',
+        // Paper tones
+        paper: '#ece2cb',
+        card: '#f6ecd6',
+        cardLight: '#faf3e3',
+        // Ink tones
+        ink: '#1c1613',
+        inkMuted: '#6b5c4b',
+        inkSoft: '#8a7b69',
+        // Stamp colors (muted, like real rubber stamps)
+        stamp: {
+          red: '#a83223',
+          burgundy: '#7a2a2a',
+          navy: '#26445c',
+          forest: '#3a5a3a',
+          olive: '#6a6a2a',
+          plum: '#5a2a52',
+          rust: '#a05a2a',
         },
       },
       boxShadow: {
-        arcade: '5px 5px 0 0 #ff2d95, 10px 10px 0 0 #00e5ff',
-        'arcade-sm': '3px 3px 0 0 #ff2d95',
-        'arcade-cyan': '4px 4px 0 0 #00e5ff',
-        'arcade-magenta': '4px 4px 0 0 #ff2d95',
-        'arcade-lime': '4px 4px 0 0 #d0ff00',
-        'arcade-white': '4px 4px 0 0 rgba(255,255,255,0.6)',
+        card: '0 1px 2px rgba(28,22,19,0.08), 0 8px 24px -12px rgba(28,22,19,0.25)',
+        cardHover: '0 2px 4px rgba(28,22,19,0.08), 0 14px 32px -14px rgba(28,22,19,0.30)',
+        deck: '0 1px 0 rgba(28,22,19,0.15), 0 2px 0 -1px #d9cfb8, 0 3px 0 -1px rgba(28,22,19,0.10), 0 4px 0 -2px #d9cfb8, 0 5px 0 -2px rgba(28,22,19,0.08)',
       },
       keyframes: {
         cardIn: {
-          '0%': { opacity: '0', transform: 'translate(-4px, 8px)' },
-          '100%': { opacity: '1', transform: 'translate(0, 0)' },
-        },
-        flicker: {
-          '0%, 100%': { opacity: '1' },
-          '48%': { opacity: '1' },
-          '50%': { opacity: '0.72' },
-          '52%': { opacity: '1' },
-        },
-        blink: {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0' },
+          '0%': { opacity: '0', transform: 'translateY(8px) rotate(-0.4deg)' },
+          '100%': { opacity: '1', transform: 'translateY(0) rotate(0)' },
         },
       },
       animation: {
-        cardIn: 'cardIn 200ms cubic-bezier(0.2, 0.9, 0.3, 1)',
-        flicker: 'flicker 5s infinite',
-        blink: 'blink 1.2s step-end infinite',
+        cardIn: 'cardIn 260ms cubic-bezier(0.2, 0.9, 0.3, 1)',
       },
     },
   },

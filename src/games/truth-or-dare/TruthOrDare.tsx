@@ -29,12 +29,9 @@ export default function TruthOrDare() {
     else if (mode === 'dare') setDare(dare.next())
   }
 
-  function backToChoice() {
-    setMode('idle')
-  }
-
   const active = mode === 'truth' ? truth : mode === 'dare' ? dare : null
   const exhausted = active !== null && active.exhausted
+  const stamp = mode === 'truth' ? '#5a2a52' : '#a83223'
 
   return (
     <GameLayout title="Pravda nebo úkol" icon="🤔">
@@ -43,29 +40,33 @@ export default function TruthOrDare() {
           <button
             type="button"
             onClick={() => pick('truth')}
-            className="group relative border-2 border-white/90 bg-neon-purple/25 shadow-[6px_6px_0_0_#00e5ff] p-6 text-left transition-transform duration-100 active:translate-x-[3px] active:translate-y-[3px] active:!shadow-none"
+            className="relative bg-card border border-ink/10 shadow-card hover:shadow-cardHover transition-all p-6 text-left active:translate-y-[1px]"
           >
-            <div className="absolute inset-x-0 top-0 h-1.5 bg-neon-purple" />
-            <p className="font-display text-[10px] uppercase tracking-[0.3em] text-neon-cyan">Volba 01</p>
-            <p className="mt-3 font-display text-4xl uppercase text-white">Pravda</p>
-            <p className="mt-3 text-sm text-white/70">Odpověz upřímně. Bez triků, bez výmluv.</p>
+            <div className="absolute inset-2 border border-ink/10 pointer-events-none" />
+            <div className="relative">
+              <span className="stamp" style={{ color: '#5a2a52' }}>Volba 01</span>
+              <p className="mt-4 font-display text-4xl text-ink">Pravda</p>
+              <p className="mt-2 font-body text-sm text-inkMuted">Odpověz upřímně. Bez triků, bez výmluv.</p>
+            </div>
           </button>
           <button
             type="button"
             onClick={() => pick('dare')}
-            className="group relative border-2 border-white/90 bg-neon-magenta/25 shadow-[6px_6px_0_0_#d0ff00] p-6 text-left transition-transform duration-100 active:translate-x-[3px] active:translate-y-[3px] active:!shadow-none"
+            className="relative bg-card border border-ink/10 shadow-card hover:shadow-cardHover transition-all p-6 text-left active:translate-y-[1px]"
           >
-            <div className="absolute inset-x-0 top-0 h-1.5 bg-neon-magenta" />
-            <p className="font-display text-[10px] uppercase tracking-[0.3em] text-neon-lime">Volba 02</p>
-            <p className="mt-3 font-display text-4xl uppercase text-white">Úkol</p>
-            <p className="mt-3 text-sm text-white/70">Splň, co karta naordinuje. Bez slitování.</p>
+            <div className="absolute inset-2 border border-ink/10 pointer-events-none" />
+            <div className="relative">
+              <span className="stamp" style={{ color: '#a83223' }}>Volba 02</span>
+              <p className="mt-4 font-display text-4xl text-ink">Úkol</p>
+              <p className="mt-2 font-body text-sm text-inkMuted">Splň, co karta naordinuje. Bez slitování.</p>
+            </div>
           </button>
           <button
             type="button"
             onClick={() => pick(Math.random() < 0.5 ? 'truth' : 'dare')}
-            className="mt-1 font-display border-2 border-white/40 bg-transparent py-3 text-xs uppercase tracking-widest text-white/60 transition-transform active:translate-x-[2px] active:translate-y-[2px]"
+            className="mt-1 font-body text-sm text-inkMuted italic hover:text-ink transition-colors"
           >
-            🎲 Vyber za mě náhodně
+            🎲 nebo vybrat náhodně
           </button>
         </div>
       )}
@@ -73,15 +74,20 @@ export default function TruthOrDare() {
       {mode !== 'idle' && (
         <Card
           keyId={active?.current ?? `${mode}-end`}
-          tint={mode === 'truth' ? 'rgba(139, 92, 255, 0.22)' : 'rgba(255, 45, 149, 0.22)'}
           eyebrow={mode === 'truth' ? 'Pravda' : 'Úkol'}
+          stampColor={stamp}
+          footer={
+            !exhausted && active
+              ? `Karta ${active.total - active.remaining} z ${active.total}`
+              : undefined
+          }
         >
           {exhausted ? (
-            <p className="text-lg text-white/70 normal-case">
+            <p className="text-lg text-inkMuted">
               Došly {mode === 'truth' ? 'otázky' : 'úkoly'}. Zamíchej balíček, nebo přepni.
             </p>
           ) : (
-            <p className="normal-case">{active?.current}</p>
+            <p>{active?.current}</p>
           )}
         </Card>
       )}
@@ -90,7 +96,6 @@ export default function TruthOrDare() {
         <div className="mt-5 flex flex-col gap-3">
           {exhausted ? (
             <PrimaryButton
-              variant={mode === 'truth' ? 'cyan' : 'magenta'}
               onClick={() =>
                 mode === 'truth' ? setTruth(truth.reset()) : setDare(dare.reset())
               }
@@ -98,15 +103,12 @@ export default function TruthOrDare() {
               Zamíchat balíček
             </PrimaryButton>
           ) : (
-            <PrimaryButton
-              variant={mode === 'truth' ? 'cyan' : 'magenta'}
-              onClick={drawNext}
-            >
+            <PrimaryButton onClick={drawNext}>
               Další {mode === 'truth' ? 'pravda' : 'úkol'}
             </PrimaryButton>
           )}
-          <PrimaryButton variant="ghost" onClick={backToChoice}>
-            ◄ Vybrat znovu
+          <PrimaryButton variant="ghost" onClick={() => setMode('idle')}>
+            ← Vybrat znovu
           </PrimaryButton>
         </div>
       )}

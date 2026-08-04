@@ -13,7 +13,6 @@ export default function MostLikely() {
     <GameLayout
       title="Nejpravděpodobněji…"
       icon="😂"
-      subtitle={`${String(deck.total - deck.remaining).padStart(2, '0')}/${deck.total}`}
       footer={
         deck.exhausted ? (
           <PrimaryButton onClick={() => setDeck(deck.reset())}>Zamíchat balíček</PrimaryButton>
@@ -22,13 +21,20 @@ export default function MostLikely() {
         )
       }
     >
-      <Card keyId={deck.current ?? 'end'} tint="rgba(249, 115, 22, 0.18)" eyebrow="Kdo z vás nejspíš…">
-        {deck.exhausted ? (
-          <p className="text-xl text-muted">Balíček je prázdný. Zamíchej ho a hraj dál.</p>
-        ) : (
+      {deck.exhausted ? (
+        <Card eyebrow="Konec balíčku" stampColor="#a05a2a">
+          <p className="text-lg text-inkMuted">Balíček je prázdný. Zamíchej ho a hraj dál.</p>
+        </Card>
+      ) : (
+        <Card
+          keyId={deck.current ?? 'end'}
+          eyebrow="Kdo z vás nejspíš…"
+          stampColor="#a05a2a"
+          footer={`Karta ${deck.total - deck.remaining} z ${deck.total}`}
+        >
           <p>{deck.current}</p>
-        )}
-      </Card>
+        </Card>
+      )}
     </GameLayout>
   )
 }
