@@ -32,7 +32,7 @@ export default function Home() {
             <em className="font-normal italic text-stamp-red">rozdej karty.</em>
           </h1>
           <p className="mt-4 max-w-[28ch] font-body text-sm text-inkMuted leading-relaxed">
-            Sedm her, přes 800 karet. Na chatu, na chatě, na oslavu.
+            Sedm her, přes 800 karet. Na chatu, na oslavy, na chvíle, kdy dojde téma.
           </p>
         </header>
 
